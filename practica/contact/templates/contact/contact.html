@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+        <section class="signup-section" id="signup">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-md-10 col-lg-8 mx-auto text-center">
+                        <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+                        <h2 class="text-white mb-5">Suscríbete para recibir nuevas rutas y reseñas!</h2>
+                        <form class="form-signup" id="contactForm">
+                            <div class="row input-group-newsletter">
+                                <div class="col"><input class="form-control rounded-start" id="emailAddress" type="email" placeholder="Ingresa tu correo..." aria-label="Ingresa tu correo..." required /></div>
+                                <div class="col-auto"><button class="btn btn-primary rounded-end" id="submitButton" type="submit">¡Registrarse!</button></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section bg-light py-5">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100 shadow-sm border-0 rounded-4">
+                            <div class="card-body text-center">
+                                <i class="fas fa-map-marked-alt text-primary mb-2 fs-3"></i>
+                                <h4 class="text-uppercase m-0 fw-bold">Oficina</h4>
+                                <hr class="my-4 mx-auto contact-card-divider" />
+                                <div class="small text-black-50">Sendero Central 428, Región del Maule</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100 shadow-sm border-0 rounded-4">
+                            <div class="card-body text-center">
+                                <i class="fas fa-envelope text-primary mb-2 fs-3"></i>
+                                <h4 class="text-uppercase m-0 fw-bold">Email</h4>
+                                <hr class="my-4 mx-auto contact-card-divider" />
+                                <div class="small text-black-50"><a href="mailto:contacto@turismonatural.com" class="text-decoration-none">contacto@turismonatural.com</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100 shadow-sm border-0 rounded-4">
+                            <div class="card-body text-center">
+                                <i class="fas fa-mobile-alt text-primary mb-2 fs-3"></i>
+                                <h4 class="text-uppercase m-0 fw-bold">Teléfono</h4>
+                                <hr class="my-4 mx-auto contact-card-divider" />
+                                <div class="small text-black-50">+56 9 8765 4321</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="social d-flex justify-content-center">
+                    <a class="mx-2 shadow-sm" href="#!"><i class="fab fa-twitter"></i></a>
+                    <a class="mx-2 shadow-sm" href="#!"><i class="fab fa-facebook-f"></i></a>
+                    <a class="mx-2 shadow-sm" href="#!"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </section>
+{% endblock %}

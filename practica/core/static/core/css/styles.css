@@ -1,0 +1,259 @@
+@charset "UTF-8";
+
+:root {
+  --bs-primary: #64a19d;
+  --bs-secondary: #7464a1;
+  --bs-success: #67c29c;
+  --bs-info: #1cabc4;
+  --bs-warning: #e4c662;
+  --bs-danger: #a16468;
+  --bs-light: #f8f9fa;
+  --bs-dark: #212529;
+  --bs-body-font-family: Nunito, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
+  --bs-body-font-size: 1rem;
+  --bs-body-font-weight: 400;
+  --bs-body-line-height: 1.5;
+  --bs-body-color: #212529;
+  --bs-body-bg: #fff;
+  --bs-link-color: #64a19d;
+  --bs-link-hover-color: #50817e;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--bs-body-font-family);
+  font-size: var(--bs-body-font-size);
+  font-weight: var(--bs-body-font-weight);
+  line-height: var(--bs-body-line-height);
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  letter-spacing: 0.0625em;
+  scroll-padding-top: calc(4.5rem - 1px);
+}
+
+/* ==========================================
+   Barra de Navegación Segura y Visible
+   ================================---------- */
+#mainNav {
+  min-height: 3.5rem;
+  background-color: transparent;
+  box-shadow: transparent ;
+  padding: 0.5rem 1rem;
+}
+
+#mainNav .navbar-brand {
+  color: #ffffff ;
+  font-weight: 700;
+}
+
+#mainNav .navbar-nav {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0;
+}
+
+#mainNav .navbar-nav .nav-link {
+  color: #ffffff ;
+  font-weight: 600;
+  transition: color 0.2s ease-in-out;
+}
+
+#mainNav .navbar-nav .nav-link:hover,
+#mainNav .navbar-nav .nav-link.active {
+  color: #a6e2a6 ;
+}
+
+#mainNav .navbar-toggler {
+  color: #eaf1f1;
+  border-color: #8cafad;
+}
+
+/* Ocultar barra de navegación al hacer scroll hacia abajo */
+#mainNav {
+  transition: top 0.3s ease-in-out;
+}
+
+#mainNav.nav-hidden {
+  top: -100px ; /* Oculta la barra fuera de la pantalla por arriba */
+}
+/* ==========================================
+   Botones
+   ================================---------- */
+.btn {
+  box-shadow: 0 0.1875rem 0.1875rem 0 rgba(206, 178, 178, 0.1) ;
+  padding: 1.25rem 2rem;
+  font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 80%;
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
+  border: 0;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #64a19d;
+  border-color: #64a19d;
+}
+
+.btn-primary:hover {
+  background-color: #558985;
+  border-color: #50817e;
+  color: #fff;
+}
+
+/* ==========================================
+   Portadas y Secciones con Fondo
+   ================================---------- */
+.masthead {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 35rem;
+  padding: 15rem 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000 100%), url("../assets/img/desierto.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.masthead h1 {
+  font-family: "Varela Round", sans-serif;
+  font-size: 2.5rem;
+  line-height: 2.5rem;
+  letter-spacing: 0.8rem;
+  background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+          background-clip: text;
+}
+
+@media (min-width: 992px) {
+  .masthead {
+    height: 100vh;
+    padding: 0;
+  }
+  .masthead h1 {
+    font-size: 6.5rem;
+    line-height: 6.5rem;
+  }
+}
+
+.about-section {
+  padding: 12rem 0 6rem 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 75%, #000 100%), url("../assets/img/torresp.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.about-title {
+  letter-spacing: 0.15rem;
+}
+
+/* ==========================================
+   Galería y Tarjetas (Cards)
+   ================================---------- */
+.projects-section {
+  padding: 8rem 0;
+  background-color: #7ba5cf ;
+}
+
+.projects-section h2 {
+  color: hsl(0, 1%, 17%) ; /* Color personalizado para el título */
+}
+
+.projects-section p {
+  color: #444444 ; /* Color personalizado para la descripción */
+}
+
+.gallery-divider {
+  width: 4rem;
+  border-top: 3px solid #abdbd8;
+  opacity: 1;
+}
+
+.projects-section .card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.projects-section .card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 1rem 2rem rgba(221, 50, 50, 0.12);
+}
+
+.gallery-card-img {
+  height: 220px;
+  object-fit: cover;
+}
+
+
+/* ==========================================
+   Registro y Contacto
+   ================================---------- */
+.signup-section {
+  padding: 10rem 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 75%, #000 100%), url("{% static 'assets/img/puertov.webp' %}");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.signup-section .form-signup input {
+  box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) ;
+  padding: 1.25rem 2rem;
+  height: auto;
+  font-size: 80%;
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
+  border: 0;
+}
+
+.contact-section {
+  padding-top: 5rem;
+}
+
+.contact-card-divider {
+  width: 3rem;
+  border-top: 3px solid #64a19d;
+  opacity: 1;
+}
+
+.contact-section .card {
+  border: 0;
+  border-bottom: 0.25rem solid #64a19d;
+}
+
+.contact-section .social {
+  margin-top: 4rem;
+}
+
+.contact-section .social a {
+  text-align: center;
+  height: 3rem;
+  width: 3rem;
+  background: rgb(165, 227, 238);
+  border-radius: 100%;
+  line-height: 3rem;
+  color: rgba(48, 91, 231, 0.842);
+  transition: color 0.2s ease;
+}
+
+.contact-section .social a:hover {
+  color: #212222;
+}
+
+/* ==========================================
+  Footer
+   ================================---------- */
+.footer {
+  padding: 3rem 0;
+  background-color: #3a3b3b;
+  color: rgb(242, 243, 245) ;
+}

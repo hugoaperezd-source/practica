@@ -24,7 +24,7 @@ from contact import views as contact_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('gallery/', gallery_views.gallery, name='gallery'),
-    path('core/', core_views.core, name='core'),
+    path('', core_views.core, name='core'),
     path('about/', about_views.about, name='about'),
     path('contact/', contact_views.contact, name='contact'),
 ]
