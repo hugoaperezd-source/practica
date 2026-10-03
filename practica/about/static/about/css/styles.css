@@ -147,7 +147,7 @@ body {
 
 .about-section {
   padding: 12rem 0 6rem 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 75%, #000 100%), url("{% static 'assets/img/torresp.webp' %}");
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 75%, #000 100%), url("../assets/img/torresp.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -199,7 +199,7 @@ body {
    ================================---------- */
 .signup-section {
   padding: 10rem 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 75%, #000 100%), url("{% static 'assets/img/puertov.webp' %}");
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 75%, #000 100%), url("../assets/img/puertov.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
