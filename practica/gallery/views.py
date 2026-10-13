@@ -5,7 +5,7 @@ from .models import Destino
 
 def gallery(request):
     destinos = Destino.objects.all()
-    paginator=Paginator(destinos, 4)
+    paginator=Paginator(destinos, 5)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     destinos = paginator.get_page(page_number)
