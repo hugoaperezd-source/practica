@@ -1,6 +1,6 @@
 from django.contrib import admin
+from .models import Destino, Categoria, Zona
 
-# Register your models here.
-from .models import Destino
-
+admin.site.register(Zona)
+admin.site.register(Categoria)
 admin.site.register(Destino)
