@@ -3,16 +3,95 @@
 {% block content %}
         <section class="signup-section" id="signup">
             <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5">
-                    <div class="col-md-10 col-lg-8 mx-auto text-center">
-                        <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
-                        <h2 class="text-white mb-5">Suscríbete para recibir nuevas rutas y reseñas!</h2>
-                        <form class="form-signup" id="contactForm">
-                            <div class="row input-group-newsletter">
-                                <div class="col"><input class="form-control rounded-start" id="emailAddress" type="email" placeholder="Ingresa tu correo..." aria-label="Ingresa tu correo..." required /></div>
-                                <div class="col-auto"><button class="btn btn-primary rounded-end" id="submitButton" type="submit">¡Registrarse!</button></div>
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8">
+                        <div class="text-center mb-4">
+                            <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+                            <h2 class="text-white mb-2">Formulario de Contacto</h2>
+                            <p class="text-white-50 mb-0">Envíanos tus dudas sobre rutas, destinos o ecoturismo responsable.</p>
+                        </div>
+
+                        <div class="card contact-form-card shadow-lg border-0 rounded-4 p-4 p-md-5">
+                            <div class="card-body">
+                                {% if 'ok' in request.GET %}
+                                    <div class="alert alert-success text-center mb-4" role="alert">
+                                        <i class="fas fa-check-circle me-2"></i>
+                                        <strong>¡Mensaje enviado correctamente!</strong> Tu consulta ha sido validada y procesada con éxito.
+                                    </div>
+                                {% endif %}
+
+                                {% if form.errors %}
+                                    <div class="alert alert-danger mb-4" role="alert">
+                                        <i class="fas fa-exclamation-triangle me-2"></i>
+                                        <strong>Por favor corrige los errores indicados en los campos del formulario.</strong>
+                                    </div>
+                                {% endif %}
+
+                                <form method="post" action="{% url 'contact' %}" novalidate>
+                                    {% csrf_token %}
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="{{ form.nombre.id_for_label }}" class="form-label fw-bold text-dark">
+                                                {{ form.nombre.label }} *
+                                            </label>
+                                            {{ form.nombre }}
+                                            {% for error in form.nombre.errors %}
+                                                <div class="text-danger small mt-1"><i class="fas fa-times-circle me-1"></i>{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label for="{{ form.email.id_for_label }}" class="form-label fw-bold text-dark">
+                                                {{ form.email.label }} *
+                                            </label>
+                                            {{ form.email }}
+                                            {% for error in form.email.errors %}
+                                                <div class="text-danger small mt-1"><i class="fas fa-times-circle me-1"></i>{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="{{ form.telefono.id_for_label }}" class="form-label fw-bold text-dark">
+                                                {{ form.telefono.label }} *
+                                            </label>
+                                            {{ form.telefono }}
+                                            {% for error in form.telefono.errors %}
+                                                <div class="text-danger small mt-1"><i class="fas fa-times-circle me-1"></i>{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label for="{{ form.motivo.id_for_label }}" class="form-label fw-bold text-dark">
+                                                {{ form.motivo.label }} *
+                                            </label>
+                                            {{ form.motivo }}
+                                            {% for error in form.motivo.errors %}
+                                                <div class="text-danger small mt-1"><i class="fas fa-times-circle me-1"></i>{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="{{ form.mensaje.id_for_label }}" class="form-label fw-bold text-dark">
+                                            {{ form.mensaje.label }} *
+                                        </label>
+                                        {{ form.mensaje }}
+                                        {% for error in form.mensaje.errors %}
+                                            <div class="text-danger small mt-1"><i class="fas fa-times-circle me-1"></i>{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="d-grid">
+                                        <button class="btn btn-primary rounded-3" id="submitButton" type="submit">
+                                            <i class="fas fa-paper-plane me-2"></i>Validar y Enviar Mensaje
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -21,46 +100,49 @@
         <section class="contact-section bg-light py-5">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5">
-                    <div class="col-md-4 mb-3 mb-md-0">
+                    <div class="col-md-3 mb-3 mb-md-0">
                         <div class="card py-4 h-100 shadow-sm border-0 rounded-4">
                             <div class="card-body text-center">
                                 <i class="fas fa-map-marked-alt text-primary mb-2 fs-3"></i>
                                 <h4 class="text-uppercase m-0 fw-bold">Oficina</h4>
                                 <hr class="my-4 mx-auto contact-card-divider" />
-                                <div class="small text-black-50">Carrera 298, Concepción, Región del Bío Bio</div>
+                                <div class="small text-black-50">{{ DIRECCION_OFICINA }}</div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 mb-3 mb-md-0">
+                    <div class="col-md-3 mb-3 mb-md-0">
                         <div class="card py-4 h-100 shadow-sm border-0 rounded-4">
                             <div class="card-body text-center">
                                 <i class="fas fa-envelope text-primary mb-2 fs-3"></i>
                                 <h4 class="text-uppercase m-0 fw-bold">Email</h4>
                                 <hr class="my-4 mx-auto contact-card-divider" />
-                                <div class="small text-black-50"><a href="mailto:contacto@turismonatural.com" class="text-decoration-none">contacto@turismonatural.com</a></div>
+                                <div class="small text-black-50">
+                                    <a href="mailto:{{ CORREO_CONTACTO }}" class="text-decoration-none">{{ CORREO_CONTACTO }}</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 mb-3 mb-md-0">
+                    <div class="col-md-3 mb-3 mb-md-0">
                         <div class="card py-4 h-100 shadow-sm border-0 rounded-4">
                             <div class="card-body text-center">
                                 <i class="fas fa-mobile-alt text-primary mb-2 fs-3"></i>
                                 <h4 class="text-uppercase m-0 fw-bold">Teléfono</h4>
                                 <hr class="my-4 mx-auto contact-card-divider" />
-                                <div class="small text-black-50">+56 9 8765 4321</div>
+                                <div class="small text-black-50">{{ TELEFONO_CONTACTO }}</div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="social d-flex justify-content-center">
-                    <!-- Twitter -->
-                    <a class="mx-2 shadow-sm" href="https://x.com/TurismoEnChile" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
-
-                    <!-- Facebook -->
-                    <a class="mx-2 shadow-sm" href="https://www.facebook.com/concepcionchile/?locale=es_LA&_rdc=1&_rdr" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
-
-                    <!-- GitHub -->
-                    <a class="mx-2 shadow-sm" href="https://github.com/hugoaperezd-source/plantilla" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+                    <div class="col-md-3 mb-3 mb-md-0">
+                        <div class="card py-4 h-100 shadow-sm border-0 rounded-4">
+                            <div class="card-body text-center">
+                                <i class="fas fa-clock text-primary mb-2 fs-3"></i>
+                                <h4 class="text-uppercase m-0 fw-bold">Horario y CONAF</h4>
+                                <hr class="my-4 mx-auto contact-card-divider" />
+                                <div class="small text-black-50">{{ HORARIO_ATENCION }}</div>
+                                <div class="small text-danger fw-semibold mt-1">{{ FONO_EMERGENCIA_CONAF }}</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

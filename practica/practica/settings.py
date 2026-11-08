@@ -16,15 +16,24 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Carga segura de variables de entorno desde el archivo .env (Norma de Codificación Segura)
+ENV_FILE = BASE_DIR / '.env'
+if ENV_FILE.exists():
+    for raw_line in ENV_FILE.read_text(encoding='utf-8').splitlines():
+        line = raw_line.strip()
+        if line and not line.startswith('#') and '=' in line:
+            key, value = line.split('=', 1)
+            os.environ[key.strip()] = value.strip()
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-q$v7*r&=ws*hsm8r_*c6g+rwo5d5t$bux@tlomcspl9nr$d%1z'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'clave-temporal-desarrollo-local')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = []
 
@@ -43,6 +52,7 @@ INSTALLED_APPS = [
     'about',
     'contact',
     'errors',
+    'corporativo',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +77,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'corporativo.processors.ctx_corporativo',
             ],
         },
     },
@@ -126,18 +137,46 @@ STATIC_URL = 'static/'
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
-MAILERS = {
-    'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
-    },
-}
+# Configuración de Correo para Mailtrap (Email Testing / Sandbox)
+# Define el servidor SMTP de prueba de Mailtrap leyendo desde variables de entorno (.env)
+EMAIL_HOST = os.environ.get('EMAIL_HOST') or 'sandbox.smtp.mailtrap.io'
+# Obtiene el usuario principal de Mailtrap desde .env
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+# Obtiene la contraseña principal de Mailtrap desde .env
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+# Carga las cuentas adicionales de Mailtrap desde .env
+_extra_creds = os.environ.get('MAILTRAP_EXTRA_CREDENTIALS', '')
+MAILTRAP_CUENTAS_ADICIONALES = [
+    tuple(par.split(':', 1))
+    for par in _extra_creds.split(',')
+    if ':' in par
+]
+# Define el puerto SMTP de Mailtrap convertido a entero (2525)
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT') or 2525)
+# Activa el cifrado de seguridad TLS para el envío de correos por SMTP
+EMAIL_USE_TLS = True
+# Define un tiempo máximo de espera (timeout) de 10 segundos para evitar bloqueo del servidor
+EMAIL_TIMEOUT = 10
 
+# Verifica si existen credenciales configuradas para decidir qué motor de correo usar
+if EMAIL_HOST_USER and EMAIL_HOST_PASSWORD:
+    # Si hay usuario y contraseña, envía los correos reales hacia el servidor SMTP de Mailtrap
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+else:
+    # Si no hay credenciales, imprime los correos en la consola como respaldo seguro
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Ruta pública base en la URL para acceder a archivos multimedia subidos
 MEDIA_URL = '/media/'
+# Ruta física en el disco donde se guardan las imágenes subidas (carpeta 'media')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Configuración de seguridad HTTPS
+# Indica a Django que confíe en el encabezado HTTPS enviado por un proxy inverso
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# Evita que el navegador adivine el tipo MIME de los archivos (protección contra ataques XSS)
 SECURE_CONTENT_TYPE_NOSNIFF = True
+# Si el proyecto pasa a producción (DEBUG = False), activa redirección y cookies exclusivas por HTTPS
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
