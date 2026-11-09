@@ -10,74 +10,87 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
+# Importa Path para gestionar rutas de archivos multiplataforma
 from pathlib import Path
+# Importa os para acceder a variables de entorno del sistema
 import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Construye la ruta raíz del proyecto (BASE_DIR) subiendo dos niveles desde settings.py
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Carga segura de variables de entorno desde el archivo .env (Norma de Codificación Segura)
+# Define la ruta hacia el archivo .env en la raíz del proyecto (Norma de Codificación Segura)
 ENV_FILE = BASE_DIR / '.env'
+# Comprueba si el archivo .env existe en el disco antes de leerlo
 if ENV_FILE.exists():
+    # Lee todas las líneas del archivo .env con codificación UTF-8
     for raw_line in ENV_FILE.read_text(encoding='utf-8').splitlines():
+        # Elimina espacios en blanco al inicio y al final de cada línea
         line = raw_line.strip()
+        # Procesa solo las líneas no vacías que no sean comentarios (#) y contengan '='
         if line and not line.startswith('#') and '=' in line:
+            # Separa la clave y el valor tomando únicamente el primer signo '='
             key, value = line.split('=', 1)
+            # Registra la variable en el entorno de ejecución de Python
             os.environ[key.strip()] = value.strip()
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# Obtiene la clave secreta de Django desde .env o usa una clave local de desarrollo como respaldo
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'clave-temporal-desarrollo-local')
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# Activa o desactiva el modo DEBUG leyendo la variable DJANGO_DEBUG desde .env
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
+# Lista de dominios/hosts permitidos para servir la aplicación
 ALLOWED_HOSTS = []
 
 
 # Application definition
 
+# Lista de aplicaciones instaladas (nativas de Django y personalizadas del proyecto)
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'gallery',
-    'core',
-    'about',
-    'contact',
-    'errors',
-    'corporativo',
+    'django.contrib.admin',          # Panel de administración nativo de Django
+    'django.contrib.auth',           # Sistema de autenticación y usuarios
+    'django.contrib.contenttypes',   # Gestión de tipos de contenido de modelos
+    'django.contrib.sessions',       # Gestión de sesiones de usuario
+    'django.contrib.messages',       # Sistema de notificaciones y mensajes
+    'django.contrib.staticfiles',    # Gestión de archivos estáticos (CSS, JS, imágenes)
+    'gallery',                       # App del catálogo de destinos, zonas y categorías (Puntos 1 y 2)
+    'core',                          # App de la portada principal (Home)
+    'about',                         # App de información institucional (About)
+    'contact',                       # App del formulario de contacto validado y Mailtrap (Punto 6)
+    'errors',                        # App dedicada al manejo de errores HTTP 404 (Punto 3)
+    'corporativo',                   # App de parámetros corporativos y procesador de contexto (Punto 5)
 ]
 
+# Lista de middlewares que procesan cada petición y respuesta HTTP
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',             # Cabeceras y validaciones de seguridad HTTP
+    'django.contrib.sessions.middleware.SessionMiddleware',      # Habilita soporte de sesiones en request
+    'django.middleware.common.CommonMiddleware',                 # Normalización de URLs y cabeceras comunes
+    'django.middleware.csrf.CsrfViewMiddleware',                 # Protección contra falsificación de peticiones (CSRF)
+    'django.contrib.auth.middleware.AuthenticationMiddleware',   # Asocia el usuario autenticado a cada petición
+    'django.contrib.messages.middleware.MessageMiddleware',      # Soporte para mensajes temporales en vistas
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',    # Protección contra ataques de clickjacking en iframes
 ]
 
+# Indica el módulo principal donde se definen las rutas URL del proyecto
 ROOT_URLCONF = 'practica.urls'
 
+# Configuración del motor de plantillas HTML de Django
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',  # Motor oficial de templates de Django
+        'DIRS': [],                                                    # Directorios globales adicionales de plantillas
+        'APP_DIRS': True,                                              # Busca automáticamente en la carpeta templates/ de cada app
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'corporativo.processors.ctx_corporativo',
+                'django.template.context_processors.request',          # Expone el objeto request en los templates
+                'django.contrib.auth.context_processors.auth',         # Expone el usuario actual y permisos en los templates
+                'django.contrib.messages.context_processors.messages', # Expone mensajes del sistema en los templates
+                'corporativo.processors.ctx_corporativo',              # Procesador de contexto propio de la agencia (Punto 5)
             ],
         },
     },

@@ -1,16 +1,16 @@
-{% extends "about/base.html" %}
-{% load static %}
-{% block content %}
-        <section class="about-section text-center" id="about">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-lg-8">
-                        <h2 class="text-white mb-4 fw-bold text-uppercase about-title">Nuestra Pasión por la Naturaleza</h2>
-                        <p class="text-white-50 mb-5 fs-5">
+{% extends "about/base.html" %} <!-- Extiende la plantilla base de la aplicación about -->
+{% load static %} <!-- Habilita el uso de archivos estáticos en la plantilla -->
+{% block content %} <!-- Inicia el bloque de contenido principal -->
+        <section class="about-section text-center" id="about"> <!-- Sección principal con imagen de fondo de Torres del Paine -->
+            <div class="container px-4 px-lg-5"> <!-- Contenedor centrado con espaciado horizontal responsivo -->
+                <div class="row gx-4 gx-lg-5 justify-content-center"> <!-- Fila centrada de la grilla de Bootstrap -->
+                    <div class="col-lg-8"> <!-- Columna de 8 unidades para centrar el texto institucional -->
+                        <h2 class="text-white mb-4 fw-bold text-uppercase about-title">Nuestra Pasión por la Naturaleza</h2> <!-- Encabezado de la sección Quiénes Somos -->
+                        <p class="about-description mb-5 fs-5"> <!-- Párrafo descriptivo sobre la misión de ecoturismo responsable -->
                             Somos una guía de turismo dedicada a conectar a las personas con los paisajes más extraordinarios. Fomentamos el ecoturismo responsable, las caminatas al aire libre y la exploración de reservas naturales protegidas para que disfrutes de cada rincón con total seguridad.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-{% endblock %}
+                        </p> <!-- Fin del párrafo descriptivo -->
+                    </div> <!-- Fin de la columna -->
+                </div> <!-- Fin de la fila -->
+            </div> <!-- Fin del contenedor -->
+        </section> <!-- Fin de la sección about -->
+{% endblock %} <!-- Fin del bloque de contenido -->

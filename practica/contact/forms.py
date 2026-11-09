@@ -130,8 +130,11 @@ class ContactForm(forms.Form):
         nombre = self.cleaned_data.get('nombre', '').strip()
         # Elimina cualquier posible etiqueta HTML para prevenir inyección
         nombre_limpio = strip_tags(nombre)
+        # Comprueba si el texto original tenía etiquetas HTML comparándolo con el texto limpio
         if nombre != nombre_limpio:
+            # Lanza un error de validación si se detectaron etiquetas HTML en el nombre
             raise forms.ValidationError('No se permiten etiquetas HTML ni código en el nombre.')
+        # Devuelve el nombre limpio y seguro
         return nombre_limpio
 
     def clean_email(self):
@@ -142,17 +145,24 @@ class ContactForm(forms.Form):
         dominios_bloqueados = {'tempmail.com', 'mailinator.com', '10minutemail.com'}
         # Extrae la parte del dominio después del símbolo @
         dominio = email.split('@')[-1] if '@' in email else ''
+        # Verifica si el dominio del correo pertenece a la lista de dominios bloqueados
         if dominio in dominios_bloqueados:
+            # Lanza un error de validación rechazando correos temporales
             raise forms.ValidationError('No se permiten correos temporales o desechables.')
+        # Devuelve el correo electrónico normalizado
         return email
 
     def clean_telefono(self):
         """Normaliza el teléfono eliminando espacios o guiones intermedios y valida cantidad de dígitos."""
         # Quita cualquier espacio o guion intermedio del número telefónico
         telefono = re.sub(r'[\s\-]+', '', self.cleaned_data.get('telefono', ''))
+        # Extrae únicamente los dígitos quitando el signo '+' inicial si existe
         digitos = telefono.lstrip('+')
+        # Verifica que solo queden dígitos numéricos y que su longitud esté entre 8 y 15
         if not digitos.isdigit() or not (8 <= len(digitos) <= 15):
+            # Lanza error si la cantidad de dígitos no es válida
             raise forms.ValidationError('El teléfono debe contener entre 8 y 15 dígitos numéricos.')
+        # Devuelve el número telefónico normalizado
         return telefono
 
     def clean_mensaje(self):
@@ -161,6 +171,8 @@ class ContactForm(forms.Form):
         mensaje = self.cleaned_data.get('mensaje', '').strip()
         # Rechaza el mensaje si contiene símbolos '<', '>' o etiquetas HTML/JavaScript
         if '<' in mensaje or '>' in mensaje or strip_tags(mensaje) != mensaje:
+            # Lanza un error de validación por intento de inyección HTML/XSS
             raise forms.ValidationError('Por seguridad, el mensaje no puede contener etiquetas HTML ni scripts.')
+        # Devuelve el mensaje validado y seguro
         return mensaje
 

@@ -1,149 +1,149 @@
-{% extends "contact/base.html" %}
-{% load static %}
-{% block content %}
-        <section class="signup-section" id="signup">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8">
-                        <div class="text-center mb-4">
-                            <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
-                            <h2 class="text-white mb-2">Formulario de Contacto</h2>
-                            <p class="text-white-50 mb-0">Envíanos tus dudas sobre rutas, destinos o ecoturismo responsable.</p>
-                        </div>
+{% extends "contact/base.html" %} <!-- Extiende la plantilla base de la aplicación contact -->
+{% load static %} <!-- Carga el sistema de archivos estáticos de Django -->
+{% block content %} <!-- Abre el bloque principal de contenido -->
+        <section class="signup-section" id="signup"> <!-- Sección superior con imagen de fondo de Puerto Varas para el formulario -->
+            <div class="container px-4 px-lg-5"> <!-- Contenedor centrado con márgenes laterales responsivos -->
+                <div class="row gx-4 gx-lg-5 justify-content-center"> <!-- Fila centrada horizontalmente -->
+                    <div class="col-md-10 col-lg-8"> <!-- Columna central para alojar la tarjeta del formulario -->
+                        <div class="text-center mb-4"> <!-- Encabezado centrado sobre el formulario -->
+                            <i class="far fa-paper-plane fa-2x mb-2 text-white"></i> <!-- Ícono de avión de papel blanco -->
+                            <h2 class="text-white mb-2">Formulario de Contacto</h2> <!-- Título principal del formulario -->
+                            <p class="text-white-50 mb-0">Envíanos tus dudas sobre rutas, destinos o ecoturismo responsable.</p> <!-- Subtítulo explicativo -->
+                        </div> <!-- Fin del encabezado del formulario -->
 
-                        <div class="card contact-form-card shadow-lg border-0 rounded-4 p-4 p-md-5">
-                            <div class="card-body">
-                                {% if 'ok' in request.GET %}
-                                    <div class="alert alert-success text-center mb-4" role="alert">
-                                        <i class="fas fa-check-circle me-2"></i>
-                                        <strong>¡Mensaje enviado correctamente!</strong> Tu consulta ha sido validada y procesada con éxito.
-                                    </div>
-                                {% endif %}
+                        <div class="card contact-form-card shadow-lg border-0 rounded-4 p-4 p-md-5"> <!-- Tarjeta blanca translúcida con sombra para los campos -->
+                            <div class="card-body"> <!-- Cuerpo interior de la tarjeta del formulario -->
+                                {% if 'ok' in request.GET %} <!-- Verifica si la URL contiene el parámetro ?ok tras un envío exitoso -->
+                                    <div class="alert alert-success text-center mb-4" role="alert"> <!-- Alerta verde de confirmación -->
+                                        <i class="fas fa-check-circle me-2"></i> <!-- Ícono de verificación exitosa -->
+                                        <strong>¡Mensaje enviado correctamente!</strong> Tu consulta ha sido validada y procesada con éxito. <!-- Texto de éxito -->
+                                    </div> <!-- Fin de la alerta de éxito -->
+                                {% endif %} <!-- Fin de la condición de envío exitoso -->
 
-                                {% if form.errors %}
-                                    <div class="alert alert-danger mb-4" role="alert">
-                                        <i class="fas fa-exclamation-triangle me-2"></i>
-                                        <strong>Por favor corrige los errores indicados en los campos del formulario.</strong>
-                                    </div>
-                                {% endif %}
+                                {% if form.errors %} <!-- Comprueba si el formulario contiene errores de validación en algún campo -->
+                                    <div class="alert alert-danger mb-4" role="alert"> <!-- Alerta roja indicando que hay errores por corregir -->
+                                        <i class="fas fa-exclamation-triangle me-2"></i> <!-- Ícono de advertencia -->
+                                        <strong>Por favor corrige los errores indicados en los campos del formulario.</strong> <!-- Mensaje general de error -->
+                                    </div> <!-- Fin de la alerta de error -->
+                                {% endif %} <!-- Fin de la comprobación de errores -->
 
-                                <form method="post" action="{% url 'contact' %}" novalidate>
-                                    {% csrf_token %}
+                                <form method="post" action="{% url 'contact' %}" novalidate> <!-- Formulario enviado por POST con validación del servidor de Django -->
+                                    {% csrf_token %} <!-- Token de seguridad obligatorio contra ataques CSRF (Norma de Codificación Segura) -->
 
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="{{ form.nombre.id_for_label }}" class="form-label fw-bold text-dark">
-                                                {{ form.nombre.label }} *
-                                            </label>
-                                            {{ form.nombre }}
-                                            {% for error in form.nombre.errors %}
-                                                <div class="text-danger small mt-1"><i class="fas fa-times-circle me-1"></i>{{ error }}</div>
-                                            {% endfor %}
-                                        </div>
+                                    <div class="row"> <!-- Primera fila de dos columnas (Nombre y Correo) -->
+                                        <div class="col-md-6 mb-3"> <!-- Columna izquierda para el campo Nombre Completo -->
+                                            <label for="{{ form.nombre.id_for_label }}" class="form-label fw-bold text-dark"> <!-- Etiqueta asociada al input de nombre -->
+                                                {{ form.nombre.label }} * <!-- Texto de la etiqueta del campo nombre -->
+                                            </label> <!-- Fin de la etiqueta nombre -->
+                                            {{ form.nombre }} <!-- Renderiza el input HTML del campo nombre con sus clases de Bootstrap -->
+                                            {% for error in form.nombre.errors %} <!-- Recorre los errores específicos del campo nombre si existen -->
+                                                <div class="text-danger small mt-1"><i class="fas fa-times-circle me-1"></i>{{ error }}</div> <!-- Muestra el mensaje de error debajo del campo -->
+                                            {% endfor %} <!-- Fin del recorrido de errores de nombre -->
+                                        </div> <!-- Fin de la columna de nombre -->
 
-                                        <div class="col-md-6 mb-3">
-                                            <label for="{{ form.email.id_for_label }}" class="form-label fw-bold text-dark">
-                                                {{ form.email.label }} *
-                                            </label>
-                                            {{ form.email }}
-                                            {% for error in form.email.errors %}
-                                                <div class="text-danger small mt-1"><i class="fas fa-times-circle me-1"></i>{{ error }}</div>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
+                                        <div class="col-md-6 mb-3"> <!-- Columna derecha para el campo Correo Electrónico -->
+                                            <label for="{{ form.email.id_for_label }}" class="form-label fw-bold text-dark"> <!-- Etiqueta asociada al input de email -->
+                                                {{ form.email.label }} * <!-- Texto de la etiqueta del campo email -->
+                                            </label> <!-- Fin de la etiqueta email -->
+                                            {{ form.email }} <!-- Renderiza el input HTML del campo email -->
+                                            {% for error in form.email.errors %} <!-- Recorre los errores específicos del campo email -->
+                                                <div class="text-danger small mt-1"><i class="fas fa-times-circle me-1"></i>{{ error }}</div> <!-- Muestra el error de validación del correo -->
+                                            {% endfor %} <!-- Fin del recorrido de errores de email -->
+                                        </div> <!-- Fin de la columna de email -->
+                                    </div> <!-- Fin de la primera fila del formulario -->
 
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="{{ form.telefono.id_for_label }}" class="form-label fw-bold text-dark">
-                                                {{ form.telefono.label }} *
-                                            </label>
-                                            {{ form.telefono }}
-                                            {% for error in form.telefono.errors %}
-                                                <div class="text-danger small mt-1"><i class="fas fa-times-circle me-1"></i>{{ error }}</div>
-                                            {% endfor %}
-                                        </div>
+                                    <div class="row"> <!-- Segunda fila de dos columnas (Teléfono y Motivo) -->
+                                        <div class="col-md-6 mb-3"> <!-- Columna izquierda para el campo Teléfono -->
+                                            <label for="{{ form.telefono.id_for_label }}" class="form-label fw-bold text-dark"> <!-- Etiqueta asociada al input de teléfono -->
+                                                {{ form.telefono.label }} * <!-- Texto de la etiqueta del campo teléfono -->
+                                            </label> <!-- Fin de la etiqueta teléfono -->
+                                            {{ form.telefono }} <!-- Renderiza el input HTML del campo teléfono -->
+                                            {% for error in form.telefono.errors %} <!-- Recorre los errores específicos del campo teléfono -->
+                                                <div class="text-danger small mt-1"><i class="fas fa-times-circle me-1"></i>{{ error }}</div> <!-- Muestra el error de validación del teléfono -->
+                                            {% endfor %} <!-- Fin del recorrido de errores de teléfono -->
+                                        </div> <!-- Fin de la columna de teléfono -->
 
-                                        <div class="col-md-6 mb-3">
-                                            <label for="{{ form.motivo.id_for_label }}" class="form-label fw-bold text-dark">
-                                                {{ form.motivo.label }} *
-                                            </label>
-                                            {{ form.motivo }}
-                                            {% for error in form.motivo.errors %}
-                                                <div class="text-danger small mt-1"><i class="fas fa-times-circle me-1"></i>{{ error }}</div>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
+                                        <div class="col-md-6 mb-3"> <!-- Columna derecha para el selector de Motivo de Contacto -->
+                                            <label for="{{ form.motivo.id_for_label }}" class="form-label fw-bold text-dark"> <!-- Etiqueta asociada al select de motivo -->
+                                                {{ form.motivo.label }} * <!-- Texto de la etiqueta del campo motivo -->
+                                            </label> <!-- Fin de la etiqueta motivo -->
+                                            {{ form.motivo }} <!-- Renderiza el menú desplegable (select) del motivo -->
+                                            {% for error in form.motivo.errors %} <!-- Recorre los errores específicos del campo motivo -->
+                                                <div class="text-danger small mt-1"><i class="fas fa-times-circle me-1"></i>{{ error }}</div> <!-- Muestra el error si no eligió un motivo válido -->
+                                            {% endfor %} <!-- Fin del recorrido de errores de motivo -->
+                                        </div> <!-- Fin de la columna de motivo -->
+                                    </div> <!-- Fin de la segunda fila del formulario -->
 
-                                    <div class="mb-4">
-                                        <label for="{{ form.mensaje.id_for_label }}" class="form-label fw-bold text-dark">
-                                            {{ form.mensaje.label }} *
-                                        </label>
-                                        {{ form.mensaje }}
-                                        {% for error in form.mensaje.errors %}
-                                            <div class="text-danger small mt-1"><i class="fas fa-times-circle me-1"></i>{{ error }}</div>
-                                        {% endfor %}
-                                    </div>
+                                    <div class="mb-4"> <!-- Contenedor para el área de texto del Mensaje -->
+                                        <label for="{{ form.mensaje.id_for_label }}" class="form-label fw-bold text-dark"> <!-- Etiqueta asociada al textarea de mensaje -->
+                                            {{ form.mensaje.label }} * <!-- Texto de la etiqueta del campo mensaje -->
+                                        </label> <!-- Fin de la etiqueta mensaje -->
+                                        {{ form.mensaje }} <!-- Renderiza el área de texto (textarea) del mensaje -->
+                                        {% for error in form.mensaje.errors %} <!-- Recorre los errores específicos del campo mensaje -->
+                                            <div class="text-danger small mt-1"><i class="fas fa-times-circle me-1"></i>{{ error }}</div> <!-- Muestra el error de longitud o de etiquetas HTML prohibidas -->
+                                        {% endfor %} <!-- Fin del recorrido de errores de mensaje -->
+                                    </div> <!-- Fin del contenedor del campo mensaje -->
 
-                                    <div class="d-grid">
-                                        <button class="btn btn-primary rounded-3" id="submitButton" type="submit">
-                                            <i class="fas fa-paper-plane me-2"></i>Validar y Enviar Mensaje
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+                                    <div class="d-grid"> <!-- Contenedor de ancho completo para el botón de envío -->
+                                        <button class="btn btn-primary rounded-3" id="submitButton" type="submit"> <!-- Botón para enviar los datos del formulario por POST -->
+                                            <i class="fas fa-paper-plane me-2"></i>Validar y Enviar Mensaje <!-- Ícono y texto del botón de envío -->
+                                        </button> <!-- Fin del botón -->
+                                    </div> <!-- Fin del contenedor del botón -->
+                                </form> <!-- Fin del formulario de contacto -->
+                            </div> <!-- Fin del cuerpo de la tarjeta -->
+                        </div> <!-- Fin de la tarjeta del formulario -->
+                    </div> <!-- Fin de la columna central -->
+                </div> <!-- Fin de la fila -->
+            </div> <!-- Fin del contenedor -->
+        </section> <!-- Fin de la sección superior del formulario -->
 
-        <section class="contact-section bg-light py-5">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5">
-                    <div class="col-md-3 mb-3 mb-md-0">
-                        <div class="card py-4 h-100 shadow-sm border-0 rounded-4">
-                            <div class="card-body text-center">
-                                <i class="fas fa-map-marked-alt text-primary mb-2 fs-3"></i>
-                                <h4 class="text-uppercase m-0 fw-bold">Oficina</h4>
-                                <hr class="my-4 mx-auto contact-card-divider" />
-                                <div class="small text-black-50">{{ DIRECCION_OFICINA }}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-3 mb-md-0">
-                        <div class="card py-4 h-100 shadow-sm border-0 rounded-4">
-                            <div class="card-body text-center">
-                                <i class="fas fa-envelope text-primary mb-2 fs-3"></i>
-                                <h4 class="text-uppercase m-0 fw-bold">Email</h4>
-                                <hr class="my-4 mx-auto contact-card-divider" />
-                                <div class="small text-black-50">
-                                    <a href="mailto:{{ CORREO_CONTACTO }}" class="text-decoration-none">{{ CORREO_CONTACTO }}</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-3 mb-md-0">
-                        <div class="card py-4 h-100 shadow-sm border-0 rounded-4">
-                            <div class="card-body text-center">
-                                <i class="fas fa-mobile-alt text-primary mb-2 fs-3"></i>
-                                <h4 class="text-uppercase m-0 fw-bold">Teléfono</h4>
-                                <hr class="my-4 mx-auto contact-card-divider" />
-                                <div class="small text-black-50">{{ TELEFONO_CONTACTO }}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-3 mb-md-0">
-                        <div class="card py-4 h-100 shadow-sm border-0 rounded-4">
-                            <div class="card-body text-center">
-                                <i class="fas fa-clock text-primary mb-2 fs-3"></i>
-                                <h4 class="text-uppercase m-0 fw-bold">Horario y CONAF</h4>
-                                <hr class="my-4 mx-auto contact-card-divider" />
-                                <div class="small text-black-50">{{ HORARIO_ATENCION }}</div>
-                                <div class="small text-danger fw-semibold mt-1">{{ FONO_EMERGENCIA_CONAF }}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-{% endblock %}
+        <section class="contact-section bg-light py-5"> <!-- Sección inferior con tarjetas de información corporativa (Procesador de Contexto) -->
+            <div class="container px-4 px-lg-5"> <!-- Contenedor centrado de las tarjetas informativas -->
+                <div class="row gx-4 gx-lg-5"> <!-- Fila de 4 columnas con los datos operativos de la agencia -->
+                    <div class="col-md-3 mb-3 mb-md-0"> <!-- Primera columna: Dirección de Oficina -->
+                        <div class="card py-4 h-100 shadow-sm border-0 rounded-4"> <!-- Tarjeta de dirección -->
+                            <div class="card-body text-center"> <!-- Cuerpo centrado de la tarjeta -->
+                                <i class="fas fa-map-marked-alt text-primary mb-2 fs-3"></i> <!-- Ícono de mapa -->
+                                <h4 class="text-uppercase m-0 fw-bold">Oficina</h4> <!-- Título de la tarjeta -->
+                                <hr class="my-4 mx-auto contact-card-divider" /> <!-- Divisor decorativo -->
+                                <div class="small text-black-50">{{ DIRECCION_OFICINA }}</div> <!-- Muestra la dirección obtenida desde el procesador de contexto -->
+                            </div> <!-- Fin del cuerpo de la tarjeta -->
+                        </div> <!-- Fin de la tarjeta de dirección -->
+                    </div> <!-- Fin de la primera columna -->
+                    <div class="col-md-3 mb-3 mb-md-0"> <!-- Segunda columna: Correo de Contacto -->
+                        <div class="card py-4 h-100 shadow-sm border-0 rounded-4"> <!-- Tarjeta de correo -->
+                            <div class="card-body text-center"> <!-- Cuerpo centrado de la tarjeta -->
+                                <i class="fas fa-envelope text-primary mb-2 fs-3"></i> <!-- Ícono de sobre de correo -->
+                                <h4 class="text-uppercase m-0 fw-bold">Email</h4> <!-- Título de la tarjeta -->
+                                <hr class="my-4 mx-auto contact-card-divider" /> <!-- Divisor decorativo -->
+                                <div class="small text-black-50"> <!-- Contenedor del enlace de correo -->
+                                    <a href="mailto:{{ CORREO_CONTACTO }}" class="text-decoration-none">{{ CORREO_CONTACTO }}</a> <!-- Muestra el correo oficial desde el procesador de contexto -->
+                                </div> <!-- Fin del contenedor del enlace -->
+                            </div> <!-- Fin del cuerpo de la tarjeta -->
+                        </div> <!-- Fin de la tarjeta de correo -->
+                    </div> <!-- Fin de la segunda columna -->
+                    <div class="col-md-3 mb-3 mb-md-0"> <!-- Tercera columna: Teléfono Oficial -->
+                        <div class="card py-4 h-100 shadow-sm border-0 rounded-4"> <!-- Tarjeta de teléfono -->
+                            <div class="card-body text-center"> <!-- Cuerpo centrado de la tarjeta -->
+                                <i class="fas fa-mobile-alt text-primary mb-2 fs-3"></i> <!-- Ícono de teléfono móvil -->
+                                <h4 class="text-uppercase m-0 fw-bold">Teléfono</h4> <!-- Título de la tarjeta -->
+                                <hr class="my-4 mx-auto contact-card-divider" /> <!-- Divisor decorativo -->
+                                <div class="small text-black-50">{{ TELEFONO_CONTACTO }}</div> <!-- Muestra el teléfono oficial desde el procesador de contexto -->
+                            </div> <!-- Fin del cuerpo de la tarjeta -->
+                        </div> <!-- Fin de la tarjeta de teléfono -->
+                    </div> <!-- Fin de la tercera columna -->
+                    <div class="col-md-3 mb-3 mb-md-0"> <!-- Cuarta columna: Horario de Atención y Emergencias CONAF -->
+                        <div class="card py-4 h-100 shadow-sm border-0 rounded-4"> <!-- Tarjeta de horario y emergencias -->
+                            <div class="card-body text-center"> <!-- Cuerpo centrado de la tarjeta -->
+                                <i class="fas fa-clock text-primary mb-2 fs-3"></i> <!-- Ícono de reloj -->
+                                <h4 class="text-uppercase m-0 fw-bold">Horario y CONAF</h4> <!-- Título de la tarjeta -->
+                                <hr class="my-4 mx-auto contact-card-divider" /> <!-- Divisor decorativo -->
+                                <div class="small text-black-50">{{ HORARIO_ATENCION }}</div> <!-- Muestra el horario de atención desde el procesador de contexto -->
+                                <div class="small text-danger fw-semibold mt-1">{{ FONO_EMERGENCIA_CONAF }}</div> <!-- Muestra el número de emergencias forestales CONAF desde el procesador de contexto -->
+                            </div> <!-- Fin del cuerpo de la tarjeta -->
+                        </div> <!-- Fin de la tarjeta de horario -->
+                    </div> <!-- Fin de la cuarta columna -->
+                </div> <!-- Fin de la fila de tarjetas corporativas -->
+            </div> <!-- Fin del contenedor -->
+        </section> <!-- Fin de la sección inferior de contacto -->
+{% endblock %} <!-- Fin del bloque de contenido -->

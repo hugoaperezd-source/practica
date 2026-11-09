@@ -1,47 +1,47 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="Conoce nuestra pasión por el ecoturismo y la naturaleza." />
-        <title>ViajAPP - About</title>
-        <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="{% static 'gallery/css/styles.css' %}" rel="stylesheet" />
-    </head>
-    <body id="page-top">
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand fw-bold" href="{% url 'home' %}">ViajAPP</a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'gallery' %}">Gallery</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    {% block content %}
-    {% endblock %}
-        <footer class="footer small text-center text-white-50">
-            <div class="container px-4 px-lg-5">
-                <div class="mb-1 text-white fw-semibold">{{ LEMA_ECOTURISMO }}</div>
-                <div class="mb-1">Catálogo activo: {{ TOTAL_DESTINOS }} destinos en {{ TOTAL_ZONAS }} zonas y {{ TOTAL_CATEGORIAS }} categorías | {{ FONO_EMERGENCIA_CONAF }}</div>
-                <div>Copyright &copy; ViajAPP 2026 - {{ DIRECCION_OFICINA }}</div>
-            </div>
-        </footer>
+{% load static %} <!-- Carga el módulo de etiquetas estáticas de Django -->
+<!DOCTYPE html> <!-- Declara que el documento utiliza HTML5 -->
+<html lang="es"> <!-- Inicia el documento HTML configurado en español -->
+    <head> <!-- Abre la cabecera de metadatos y estilos -->
+        <meta charset="utf-8" /> <!-- Define codificación UTF-8 -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" /> <!-- Hace que el diseño se adapte al ancho de cualquier pantalla -->
+        <meta name="description" content="Conoce nuestra pasión por el ecoturismo y la naturaleza." /> <!-- Descripción de la galería para buscadores -->
+        <title>ViajAPP - Gallery</title> <!-- Título de la pestaña en la vista Gallery -->
+        <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" /> <!-- Ícono de pestaña (favicon) -->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script> <!-- Carga librería de íconos FontAwesome por HTTPS -->
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" /> <!-- Carga tipografía Varela Round por HTTPS -->
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" /> <!-- Carga tipografía Nunito por HTTPS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" /> <!-- Carga estilos de Bootstrap 5.2.3 por HTTPS -->
+        <link href="{% static 'gallery/css/styles.css' %}?v=7" rel="stylesheet" /> <!-- Enlaza la hoja de estilos propia de gallery -->
+    </head> <!-- Cierra la cabecera -->
+    <body id="page-top"> <!-- Inicia el cuerpo de la página con estructura flex vertical -->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"> <!-- Barra de navegación superior fija -->
+            <div class="container px-4 px-lg-5"> <!-- Contenedor centrado de la barra -->
+                <a class="navbar-brand fw-bold" href="{% url 'home' %}">ViajAPP</a> <!-- Enlace de marca hacia la portada -->
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> <!-- Botón desplegable en pantallas pequeñas -->
+                    Menu <!-- Texto del botón móvil -->
+                    <i class="fas fa-bars"></i> <!-- Ícono de barras -->
+                </button> <!-- Fin del botón móvil -->
+                <div class="collapse navbar-collapse justify-content-end" id="navbarResponsive"> <!-- Contenedor colapsable de enlaces -->
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0"> <!-- Lista de enlaces de navegación -->
+                        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li> <!-- Enlace a Home -->
+                        <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li> <!-- Enlace a About -->
+                        <li class="nav-item"><a class="nav-link" href="{% url 'gallery' %}">Gallery</a></li> <!-- Enlace a Gallery -->
+                        <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li> <!-- Enlace a Contact -->
+                    </ul> <!-- Fin de la lista de enlaces -->
+                </div> <!-- Fin del menú colapsable -->
+            </div> <!-- Fin del contenedor de navegación -->
+        </nav> <!-- Fin de la barra de navegación -->
+    {% block content %} <!-- Abre el bloque donde gallery.html inyecta el catálogo y filtros -->
+    {% endblock %} <!-- Cierra el bloque de contenido -->
+        <footer class="footer small text-center text-white-50"> <!-- Pie de página institucional empujado siempre al borde inferior -->
+            <div class="container px-4 px-lg-5"> <!-- Contenedor centrado del footer -->
+                <div class="mb-1 text-white fw-semibold">{{ LEMA_ECOTURISMO }}</div> <!-- Muestra el lema ecológico desde el procesador de contexto -->
+                <div class="mb-1">Catálogo activo: {{ TOTAL_DESTINOS }} destinos en {{ TOTAL_ZONAS }} zonas y {{ TOTAL_CATEGORIAS }} categorías | {{ FONO_EMERGENCIA_CONAF }}</div> <!-- Muestra totales del catálogo y fono CONAF desde el procesador de contexto -->
+                <div>Copyright &copy; ViajAPP 2026 - {{ DIRECCION_OFICINA }}</div> <!-- Muestra copyright y dirección de oficina desde el procesador de contexto -->
+            </div> <!-- Fin del contenedor del footer -->
+        </footer> <!-- Fin del pie de página -->
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="{% static 'gallery/js/scripts.js' %}"></script>
-    </body>
-</html>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> <!-- Carga scripts de Bootstrap 5 por HTTPS -->
+        <script src="{% static 'gallery/js/scripts.js' %}"></script> <!-- Carga el archivo JS de la app gallery -->
+    </body> <!-- Fin del cuerpo del documento -->
+</html> <!-- Fin del documento HTML -->

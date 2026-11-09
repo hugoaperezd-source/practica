@@ -2,6 +2,7 @@
 
 :root {
   --bs-primary: #64a19d;
+  --bs-primary-rgb: 100, 161, 157;
   --bs-secondary: #7464a1;
   --bs-success: #67c29c;
   --bs-info: #1cabc4;
@@ -25,16 +26,26 @@
   box-sizing: border-box;
 }
 
+/* Garantiza que el documento y el cuerpo ocupen toda la altura de la ventana */
+html,
 body {
-  margin: 0;
-  font-family: var(--bs-body-font-family);
-  font-size: var(--bs-body-font-size);
-  font-weight: var(--bs-body-font-weight);
-  line-height: var(--bs-body-line-height);
-  color: var(--bs-body-color);
-  background-color: var(--bs-body-bg);
-  letter-spacing: 0.0625em;
-  scroll-padding-top: calc(4.5rem - 1px);
+  height: 100%; /* Altura base del 100% */
+}
+
+/* Configura el body en columna flexible para eliminar espacios en blanco bajo el footer en pantallas grandes */
+body {
+  min-height: 100vh; /* Altura mínima igual al 100% de la pantalla visible */
+  display: flex; /* Activa Flexbox en el contenedor principal */
+  flex-direction: column; /* Organiza menú, contenido y footer de arriba hacia abajo */
+  margin: 0; /* Quita márgenes por defecto del navegador */
+  font-family: var(--bs-body-font-family); /* Fuente tipográfica general */
+  font-size: var(--bs-body-font-size); /* Tamaño de texto base */
+  font-weight: var(--bs-body-font-weight); /* Grosor de letra base */
+  line-height: var(--bs-body-line-height); /* Altura de línea para legibilidad */
+  color: var(--bs-body-color); /* Color principal del texto */
+  background-color: #3a3b3b; /* Fondo igual al footer para evitar franjas blancas */
+  letter-spacing: 0.0625em; /* Espaciado entre letras */
+  scroll-padding-top: calc(4.5rem - 1px); /* Ajuste de desplazamiento por barra fija */
 }
 
 /* ==========================================
@@ -42,8 +53,10 @@ body {
    ================================---------- */
 #mainNav {
   min-height: 3.5rem;
-  background-color: transparent;
-  box-shadow: transparent ;
+  background-color: rgba(33, 37, 41, 0.62);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   padding: 0.5rem 1rem;
 }
 
@@ -68,6 +81,13 @@ body {
 #mainNav .navbar-nav .nav-link:hover,
 #mainNav .navbar-nav .nav-link.active {
   color: #a6e2a6 ;
+}
+
+#mainNav .nav-link:focus-visible,
+#mainNav .navbar-brand:focus-visible {
+  outline: 2px solid #d9efec;
+  outline-offset: 3px;
+  border-radius: 0.2rem;
 }
 
 #mainNav .navbar-toggler {
@@ -100,12 +120,22 @@ body {
   color: #fff;
   background-color: #64a19d;
   border-color: #64a19d;
+  border-radius: 0.4rem;
+  font-weight: 700;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-primary:hover {
   background-color: #558985;
   border-color: #50817e;
   color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1rem rgba(20, 48, 47, 0.2);
+}
+
+.btn:focus-visible {
+  outline: 3px solid rgba(100, 161, 157, 0.55);
+  outline-offset: 3px;
 }
 
 /* ==========================================
@@ -123,15 +153,17 @@ body {
   background-size: cover;
 }
 
+.home-hero-content {
+  transform: translateY(-0.75rem);
+}
+
 .masthead h1 {
   font-family: "Varela Round", sans-serif;
   font-size: 2.5rem;
   line-height: 2.5rem;
-  letter-spacing: 0.8rem;
-  background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
-  -webkit-text-fill-color: transparent;
-  -webkit-background-clip: text;
-          background-clip: text;
+  letter-spacing: 0.35rem;
+  color: #fff;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.28);
 }
 
 @media (min-width: 992px) {
@@ -140,9 +172,16 @@ body {
     padding: 0;
   }
   .masthead h1 {
-    font-size: 6.5rem;
-    line-height: 6.5rem;
+    font-size: clamp(3rem, 5.2vw, 4.5rem);
+    line-height: 1.1;
+    letter-spacing: clamp(0.25rem, 0.4vw, 0.4rem);
   }
+}
+
+.masthead h2 {
+  max-width: 54rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.86) !important;
 }
 
 .about-section {
@@ -238,22 +277,34 @@ body {
   text-align: center;
   height: 3rem;
   width: 3rem;
-  background: rgb(165, 227, 238);
+  background: rgba(100, 161, 157, 0.16);
   border-radius: 100%;
   line-height: 3rem;
-  color: rgba(48, 91, 231, 0.842);
-  transition: color 0.2s ease;
+  color: #4f8580;
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
 }
 
 .contact-section .social a:hover {
-  color: #212222;
+  color: #fff;
+  background: #64a19d;
+  transform: translateY(-2px);
 }
 
 /* ==========================================
   Footer
    ================================---------- */
+/* Hace que la sección principal se expanda para llenar toda la pantalla en monitores grandes */
+.masthead,
+.about-section,
+.projects-section,
+.contact-section {
+  flex: 1 0 auto; /* Crece automáticamente ocupando el alto restante */
+}
+
 .footer {
-  padding: 3rem 0;
-  background-color: #3a3b3b;
-  color: rgb(242, 243, 245) ;
+  margin-top: auto; /* Empuja el footer al borde inferior sin dejar espacio en blanco debajo */
+  flex-shrink: 0; /* Evita que el footer reduzca su tamaño */
+  padding: 3rem 0; /* Espaciado vertical interno del pie de página */
+  background-color: #3a3b3b; /* Color de fondo gris oscuro institucional */
+  color: rgb(242, 243, 245) ; /* Color de texto claro */
 }

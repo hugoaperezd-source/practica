@@ -1,143 +1,143 @@
-{% extends "gallery/base.html" %}
-{% load static %}
+{% extends "gallery/base.html" %} <!-- Extiende la plantilla base de la aplicación gallery -->
+{% load static %} <!-- Habilita las etiquetas de archivos estáticos de Django -->
 
-{% block content %}
-<section class="projects-section" id="projects">
-    <div class="container px-4 px-lg-5">
+{% block content %} <!-- Abre el bloque principal de contenido de la galería -->
+<section class="projects-section" id="projects"> <!-- Sección principal del catálogo con imagen de fondo de Chiloé -->
+    <div class="container px-4 px-lg-5"> <!-- Contenedor centrado con márgenes laterales responsivos -->
         <!-- Encabezado -->
-        <div class="row justify-content-center">
-            <div class="col-lg-8 text-center mb-4">
-                <h2 class="text-uppercase fw-bold mb-3">Destinos y Reseñas</h2>
-                <p>Explora nuestros paisajes destacados en formato de tarjetas y descubre las experiencias de otros viajeros.</p>
-                <hr class="mx-auto gallery-divider" />
-            </div>
-        </div>
+        <div class="row justify-content-center"> <!-- Fila centrada para el título de la galería -->
+            <div class="col-lg-8 text-center mb-4"> <!-- Columna de 8 unidades con texto centrado -->
+                <h2 class="text-uppercase fw-bold mb-3">Destinos y Reseñas</h2> <!-- Título principal de la sección de destinos -->
+                <p>Explora nuestros paisajes destacados en formato de tarjetas y descubre las experiencias de otros viajeros.</p> <!-- Descripción introductoria del catálogo -->
+                <hr class="mx-auto gallery-divider" /> <!-- Línea divisoria decorativa centrada -->
+            </div> <!-- Fin de la columna del encabezado -->
+        </div> <!-- Fin de la fila del encabezado -->
 
         <!-- Filtros tipo etiquetas por método GET -->
-        <div class="row justify-content-center mb-4">
-            <div class="col-lg-10 text-center">
-                <div class="mb-2">
-                    <span class="fw-bold text-dark me-2"><i class="fas fa-tags me-1"></i>Categorías:</span>
-                    <a href="{% url 'gallery' %}" class="badge rounded-pill text-decoration-none px-3 py-2 m-1 {% if not categoria_actual and not zona_actual %}bg-dark text-white{% else %}bg-light text-dark border{% endif %}">
-                        Todas
-                    </a>
-                    {% for cat in categorias %}
-                        <a href="?categoria={{ cat.id }}" class="badge rounded-pill text-decoration-none px-3 py-2 m-1 {% if categoria_actual.id == cat.id %}bg-primary text-white{% else %}bg-light text-dark border{% endif %}">
-                            #{{ cat.nombre }}
-                        </a>
-                    {% endfor %}
-                </div>
-                <div>
-                    <span class="fw-bold text-dark me-2"><i class="fas fa-map-marker-alt me-1"></i>Zonas:</span>
-                    {% for z in zonas %}
-                        <a href="?zona={{ z.id }}" class="badge rounded-pill text-decoration-none px-3 py-2 m-1 {% if zona_actual.id == z.id %}bg-secondary text-white{% else %}bg-light text-dark border{% endif %}">
-                            {{ z.nombre }}
-                        </a>
-                    {% endfor %}
-                </div>
-                {% if categoria_actual or zona_actual %}
-                    <div class="mt-3">
-                        <span class="badge bg-info text-dark px-3 py-2">
-                            Filtrando por:
-                            {% if categoria_actual %}Categoría "{{ categoria_actual.nombre }}"{% endif %}
-                            {% if zona_actual %}Zona "{{ zona_actual.nombre }}"{% endif %}
-                        </span>
-                        <a href="{% url 'gallery' %}" class="btn btn-sm btn-outline-dark ms-2 py-1 px-3">Limpiar filtro</a>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
+        <div class="row justify-content-center mb-4"> <!-- Fila centrada para la barra de filtros por etiquetas -->
+            <div class="col-lg-10 text-center"> <!-- Columna ancha para mostrar las etiquetas de categorías y zonas -->
+                <div class="mb-2"> <!-- Bloque superior con los filtros de Categorías -->
+                    <span class="fw-bold text-dark me-2"><i class="fas fa-tags me-1"></i>Categorías:</span> <!-- Etiqueta indicadora de filtros por categoría -->
+                    <a href="{% url 'gallery' %}" class="badge rounded-pill text-decoration-none px-3 py-2 m-1 {% if not categoria_actual and not zona_actual %}bg-dark text-white{% else %}bg-light text-dark border{% endif %}"> <!-- Botón para quitar filtros y mostrar todas las categorías -->
+                        Todas <!-- Texto del botón general -->
+                    </a> <!-- Fin del enlace Todas -->
+                    {% for cat in categorias %} <!-- Recorre cada categoría registrada en la base de datos -->
+                        <a href="?categoria={{ cat.id }}" class="badge rounded-pill text-decoration-none px-3 py-2 m-1 {% if categoria_actual.id == cat.id %}bg-primary text-white{% else %}bg-light text-dark border{% endif %}"> <!-- Enlace que envía el ID de la categoría por método GET (?categoria=ID) -->
+                            #{{ cat.nombre }} <!-- Muestra el nombre de la categoría precedido por hashtag -->
+                        </a> <!-- Fin del botón de categoría -->
+                    {% endfor %} <!-- Fin del ciclo de categorías -->
+                </div> <!-- Fin del bloque de categorías -->
+                <div> <!-- Bloque inferior con los filtros de Zonas Geográficas -->
+                    <span class="fw-bold text-dark me-2"><i class="fas fa-map-marker-alt me-1"></i>Zonas:</span> <!-- Etiqueta indicadora de filtros por zona -->
+                    {% for z in zonas %} <!-- Recorre cada zona geográfica registrada en la base de datos -->
+                        <a href="?zona={{ z.id }}" class="badge rounded-pill text-decoration-none px-3 py-2 m-1 {% if zona_actual.id == z.id %}bg-secondary text-white{% else %}bg-light text-dark border{% endif %}"> <!-- Enlace que envía el ID de la zona por método GET (?zona=ID) -->
+                            {{ z.nombre }} <!-- Muestra el nombre de la zona geográfica -->
+                        </a> <!-- Fin del botón de zona -->
+                    {% endfor %} <!-- Fin del ciclo de zonas -->
+                </div> <!-- Fin del bloque de zonas -->
+                {% if categoria_actual or zona_actual %} <!-- Comprueba si hay algún filtro GET activo actualmente -->
+                    <div class="mt-3"> <!-- Contenedor del aviso de filtro activo -->
+                        <span class="badge bg-info text-dark px-3 py-2"> <!-- Insignia informativa que indica el filtro aplicado -->
+                            Filtrando por: <!-- Texto estático del indicador -->
+                            {% if categoria_actual %}Categoría "{{ categoria_actual.nombre }}"{% endif %} <!-- Muestra el nombre de la categoría activa si existe -->
+                            {% if zona_actual %}Zona "{{ zona_actual.nombre }}"{% endif %} <!-- Muestra el nombre de la zona activa si existe -->
+                        </span> <!-- Fin de la insignia informativa -->
+                        <a href="{% url 'gallery' %}" class="btn btn-sm btn-outline-dark ms-2 py-1 px-3">Limpiar filtro</a> <!-- Botón para restablecer el catálogo completo -->
+                    </div> <!-- Fin del contenedor de filtro activo -->
+                {% endif %} <!-- Fin de la condición de filtro activo -->
+            </div> <!-- Fin de la columna de filtros -->
+        </div> <!-- Fin de la fila de filtros -->
 
         <!-- Tarjetas de Destinos -->
-        <div class="row">
-            {% for destino in destinos %}
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm">
-                        {% if destino.imagen %}
-                            <img src="{{ destino.imagen.url }}" class="card-img-top gallery-card-img" alt="{{ destino.nombre }}">
-                        {% endif %}
-                        <div class="card-body d-flex flex-column">
-                            <div class="d-flex justify-content-between align-items-start mb-2">
-                                <h5 class="card-title fw-bold mb-0">{{ destino.nombre }}</h5>
-                                {% if destino.zona %}
-                                    <a href="?zona={{ destino.zona.id }}" class="badge bg-secondary text-white text-decoration-none ms-2">
-                                        <i class="fas fa-compass me-1"></i>{{ destino.zona.nombre }}
-                                    </a>
-                                {% endif %}
-                            </div>
+        <div class="row"> <!-- Fila de la grilla donde se despliegan las tarjetas de destinos -->
+            {% for destino in destinos %} <!-- Recorre cada destino perteneciente a la página actual -->
+                <div class="col-md-4 mb-4"> <!-- Columna de 4 unidades (3 tarjetas por fila en pantallas medianas/grandes) -->
+                    <div class="card h-100 shadow-sm"> <!-- Tarjeta de Bootstrap de altura uniforme y sombra suave -->
+                        {% if destino.imagen %} <!-- Verifica si el destino tiene una fotografía asociada -->
+                            <img src="{{ destino.imagen.url }}" class="card-img-top gallery-card-img" alt="{{ destino.nombre }}"> <!-- Muestra la imagen superior del destino con recorte uniforme -->
+                        {% endif %} <!-- Fin de la condición de imagen -->
+                        <div class="card-body d-flex flex-column"> <!-- Cuerpo de la tarjeta organizado en columna flexible -->
+                            <div class="d-flex justify-content-between align-items-start mb-2"> <!-- Encabezado de la tarjeta con nombre y etiqueta de zona -->
+                                <h5 class="card-title fw-bold mb-0">{{ destino.nombre }}</h5> <!-- Nombre del destino turístico -->
+                                {% if destino.zona %} <!-- Verifica si el destino tiene zona asignada (Relación ForeignKey) -->
+                                    <a href="?zona={{ destino.zona.id }}" class="badge bg-secondary text-white text-decoration-none ms-2"> <!-- Etiqueta clicable para filtrar por esa zona vía GET -->
+                                        <i class="fas fa-compass me-1"></i>{{ destino.zona.nombre }} <!-- Ícono de brújula y nombre de la zona -->
+                                    </a> <!-- Fin del enlace de zona -->
+                                {% endif %} <!-- Fin de la condición de zona -->
+                            </div> <!-- Fin del encabezado de la tarjeta -->
                            
                             <!-- Descripción general del lugar -->
-                            <p class="card-text text-muted small mb-3">{{ destino.descripcion }}</p>
+                            <p class="card-text text-muted small mb-3">{{ destino.descripcion }}</p> <!-- Texto descriptivo del atractivo turístico -->
                            
                             <!-- Comentario / Opinión del autor -->
-                            {% if destino.comentario %}
-                                <div class="bg-light p-3 rounded mb-3 flex-grow-1 border-start border-4 border-warning">
-                                    <p class="card-text fst-italic text-dark small mb-0">"{{ destino.comentario }}"</p>
-                                </div>
-                            {% endif %}
+                            {% if destino.comentario %} <!-- Verifica si existe una reseña de viajero para mostrar -->
+                                <div class="bg-light p-3 rounded mb-3 flex-grow-1 border-start border-4 border-warning"> <!-- Recuadro destacado para la cita del viajero -->
+                                    <p class="card-text fst-italic text-dark small mb-0">"{{ destino.comentario }}"</p> <!-- Comentario o reseña en cursiva entre comillas -->
+                                </div> <!-- Fin del recuadro de reseña -->
+                            {% endif %} <!-- Fin de la condición de comentario -->
 
                             <!-- Etiquetas / Categorías del destino (Filtro GET) -->
-                            <div class="mb-3">
-                                {% for categoria in destino.categorias.all %}
-                                    <a href="?categoria={{ categoria.id }}" class="badge rounded-pill bg-primary text-white text-decoration-none me-1 mb-1">
-                                        #{{ categoria.nombre }}
-                                    </a>
-                                {% endfor %}
-                            </div>
+                            <div class="mb-3"> <!-- Contenedor de etiquetas de categorías del destino -->
+                                {% for categoria in destino.categorias.all %} <!-- Recorre todas las categorías asociadas al destino (Relación ManyToMany) -->
+                                    <a href="?categoria={{ categoria.id }}" class="badge rounded-pill bg-primary text-white text-decoration-none me-1 mb-1"> <!-- Etiqueta clicable que filtra por esa categoría vía GET -->
+                                        #{{ categoria.nombre }} <!-- Nombre de la categoría -->
+                                    </a> <!-- Fin de la etiqueta de categoría -->
+                                {% endfor %} <!-- Fin del ciclo de categorías del destino -->
+                            </div> <!-- Fin del contenedor de etiquetas -->
                            
-                            <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
-                                <span class="badge bg-warning text-dark">★ {{ destino.calificacion }} / 5.0</span>
-                                <small class="text-muted fw-semibold">Por: {{ destino.autor }}</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% empty %}
-                <div class="col-12 text-center text-muted">
-                    <p>No se encontraron destinos disponibles.</p>
-                </div>
-            {% endfor %}
-        </div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top"> <!-- Pie de la tarjeta con calificación y autor -->
+                                <span class="badge bg-warning text-dark">★ {{ destino.calificacion }} / 5.0</span> <!-- Calificación numérica sobre 5.0 estrellas -->
+                                <small class="text-muted fw-semibold">Por: {{ destino.autor }}</small> <!-- Nombre del autor de la reseña -->
+                            </div> <!-- Fin del pie de la tarjeta -->
+                        </div> <!-- Fin del cuerpo de la tarjeta -->
+                    </div> <!-- Fin de la tarjeta -->
+                </div> <!-- Fin de la columna de la tarjeta -->
+            {% empty %} <!-- Bloque alternativo si no hubiera destinos -->
+                <div class="col-12 text-center text-muted"> <!-- Columna de ancho completo para el mensaje vacío -->
+                    <p>No se encontraron destinos disponibles.</p> <!-- Mensaje informativo -->
+                </div> <!-- Fin de la columna -->
+            {% endfor %} <!-- Fin del recorrido de destinos -->
+        </div> <!-- Fin de la fila de tarjetas -->
 
         <!-- Navegación de Paginación -->
-        {% if destinos.has_other_pages %}
-        <div class="row mt-4">
-            <div class="col-12">
-                <nav aria-label="Navegación de destinos">
-                    <ul class="pagination justify-content-center">
-                        {% if destinos.has_previous %}
-                            <li class="page-item">
-                                <a class="page-link" href="?page={{ destinos.previous_page_number }}{% if categoria_actual %}&categoria={{ categoria_actual.id }}{% endif %}{% if zona_actual %}&zona={{ zona_actual.id }}{% endif %}">Anterior</a>
-                            </li>
-                        {% else %}
-                            <li class="page-item disabled">
-                                <span class="page-link">Anterior</span>
-                            </li>
-                        {% endif %}
+        {% if destinos.has_other_pages %} <!-- Muestra los controles de paginación solo si hay más de una página -->
+        <div class="row mt-4"> <!-- Fila superior de separación para la paginación -->
+            <div class="col-12"> <!-- Columna de ancho completo -->
+                <nav aria-label="Navegación de destinos"> <!-- Contenedor semántico de navegación de páginas -->
+                    <ul class="pagination justify-content-center"> <!-- Lista de botones de paginación centrada -->
+                        {% if destinos.has_previous %} <!-- Verifica si existe una página anterior -->
+                            <li class="page-item"> <!-- Elemento de lista habilitado -->
+                                <a class="page-link" href="?page={{ destinos.previous_page_number }}{% if categoria_actual %}&categoria={{ categoria_actual.id }}{% endif %}{% if zona_actual %}&zona={{ zona_actual.id }}{% endif %}">Anterior</a> <!-- Enlace a la página previa conservando el filtro GET activo -->
+                            </li> <!-- Fin del elemento Anterior habilitado -->
+                        {% else %} <!-- Si ya está en la primera página -->
+                            <li class="page-item disabled"> <!-- Elemento de lista deshabilitado -->
+                                <span class="page-link">Anterior</span> <!-- Texto Anterior sin enlace -->
+                            </li> <!-- Fin del elemento Anterior deshabilitado -->
+                        {% endif %} <!-- Fin de la condición de página previa -->
 
-                        {% for page in destinos.paginator.page_range %}
-                            {% if destinos.number == page %}
-                                <li class="page-item active"><span class="page-link">{{ page }}</span></li>
-                            {% else %}
-                                <li class="page-item"><a class="page-link" href="?page={{ page }}{% if categoria_actual %}&categoria={{ categoria_actual.id }}{% endif %}{% if zona_actual %}&zona={{ zona_actual.id }}{% endif %}">{{ page }}</a></li>
-                            {% endif %}
-                        {% endfor %}
+                        {% for page in destinos.paginator.page_range %} <!-- Recorre cada número de página disponible -->
+                            {% if destinos.number == page %} <!-- Si el número corresponde a la página actual -->
+                                <li class="page-item active"><span class="page-link">{{ page }}</span></li> <!-- Resalta el número de página actual como activo -->
+                            {% else %} <!-- Si es otra página distinta a la actual -->
+                                <li class="page-item"><a class="page-link" href="?page={{ page }}{% if categoria_actual %}&categoria={{ categoria_actual.id }}{% endif %}{% if zona_actual %}&zona={{ zona_actual.id }}{% endif %}">{{ page }}</a></li> <!-- Enlace al número de página manteniendo los filtros GET -->
+                            {% endif %} <!-- Fin de la comparación de página actual -->
+                        {% endfor %} <!-- Fin del recorrido de páginas -->
 
-                        {% if destinos.has_next %}
-                            <li class="page-item">
-                                <a class="page-link" href="?page={{ destinos.next_page_number }}{% if categoria_actual %}&categoria={{ categoria_actual.id }}{% endif %}{% if zona_actual %}&zona={{ zona_actual.id }}{% endif %}">Siguiente</a>
-                            </li>
-                        {% else %}
-                            <li class="page-item disabled">
-                                <span class="page-link">Siguiente</span>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </nav>
-            </div>
-        </div>
-        {% endif %}
+                        {% if destinos.has_next %} <!-- Verifica si existe una página siguiente -->
+                            <li class="page-item"> <!-- Elemento de lista habilitado -->
+                                <a class="page-link" href="?page={{ destinos.next_page_number }}{% if categoria_actual %}&categoria={{ categoria_actual.id }}{% endif %}{% if zona_actual %}&zona={{ zona_actual.id }}{% endif %}">Siguiente</a> <!-- Enlace a la página siguiente conservando el filtro GET activo -->
+                            </li> <!-- Fin del elemento Siguiente habilitado -->
+                        {% else %} <!-- Si ya está en la última página -->
+                            <li class="page-item disabled"> <!-- Elemento de lista deshabilitado -->
+                                <span class="page-link">Siguiente</span> <!-- Texto Siguiente sin enlace -->
+                            </li> <!-- Fin del elemento Siguiente deshabilitado -->
+                        {% endif %} <!-- Fin de la condición de página siguiente -->
+                    </ul> <!-- Fin de la lista de paginación -->
+                </nav> <!-- Fin del bloque nav de paginación -->
+            </div> <!-- Fin de la columna de paginación -->
+        </div> <!-- Fin de la fila de paginación -->
+        {% endif %} <!-- Fin de la condición has_other_pages -->
 
-    </div>
-</section>
-{% endblock %}
+    </div> <!-- Fin del contenedor principal -->
+</section> <!-- Fin de la sección de galería -->
+{% endblock %} <!-- Cierra el bloque de contenido -->

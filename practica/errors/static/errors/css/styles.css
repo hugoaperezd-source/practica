@@ -1,89 +1,105 @@
-@charset "UTF-8";
+@charset "UTF-8"; /* Declara la codificación UTF-8 para la hoja de estilos de errores */
 
-:root {
-  --bs-primary: #64a19d;
-  --bs-secondary: #7464a1;
-  --bs-body-font-family: Nunito, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
+:root { /* Define las variables CSS globales para colores y tipografía */
+  --bs-primary: #64a19d; /* Color primario verde-azulado de ViajAPP */
+  --bs-primary-rgb: 100, 161, 157; /* Valor RGB del color primario */
+  --bs-secondary: #7464a1; /* Color secundario institucional */
+  --bs-body-font-family: Nunito, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; /* Pila tipográfica principal */
 }
 
-body {
-  margin: 0;
-  font-family: var(--bs-body-font-family);
-  letter-spacing: 0.0625em;
+html,
+body { /* Asegura que el documento raíz y el cuerpo ocupen el 100% de la altura */
+  height: 100%; /* Altura completa de la ventana */
 }
 
-#mainNav {
-  min-height: 3.5rem;
-  background-color: rgba(33, 37, 41, 0.9);
-  padding: 0.5rem 1rem;
+body { /* Configura el cuerpo como contenedor flexible vertical para evitar espacios blancos bajo el footer */
+  min-height: 100vh; /* Altura mínima equivalente al 100% de la pantalla */
+  display: flex; /* Activa el modelo de caja flexible (Flexbox) */
+  flex-direction: column; /* Apila barra, sección de error y footer en columna vertical */
+  margin: 0; /* Elimina los márgenes predeterminados del navegador */
+  font-family: var(--bs-body-font-family); /* Aplica la fuente tipográfica definida */
+  background-color: #212529; /* Color de fondo oscuro coincidente con el footer */
+  letter-spacing: 0.0625em; /* Espaciado ligero entre letras para mejor lectura */
 }
 
-#mainNav .navbar-brand {
-  color: #ffffff;
-  font-weight: 700;
+#mainNav { /* Estilos de la barra de navegación superior fija */
+  min-height: 3.5rem; /* Altura mínima de la barra */
+  background-color: rgba(33, 37, 41, 0.62); /* Fondo oscuro semitransparente */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12); /* Línea divisoria inferior sutil */
+  backdrop-filter: blur(8px); /* Efecto de desenfoque de cristal sobre el fondo */
+  -webkit-backdrop-filter: blur(8px); /* Soporte de desenfoque para navegadores WebKit */
+  padding: 0.5rem 1rem; /* Relleno interno vertical y horizontal */
 }
 
-#mainNav .navbar-nav {
-  list-style: none;
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 0;
+#mainNav .navbar-brand { /* Estilo del logotipo/nombre ViajAPP en la barra */
+  color: #ffffff; /* Texto en color blanco */
+  font-weight: 700; /* Texto en negrita */
 }
 
-#mainNav .navbar-nav .nav-link {
-  color: #ffffff;
-  font-weight: 600;
-  transition: color 0.2s ease-in-out;
+#mainNav .navbar-nav { /* Contenedor de la lista de enlaces del menú */
+  list-style: none; /* Quita las viñetas de la lista */
+  display: flex; /* Muestra los elementos en fila */
+  gap: 1rem; /* Separación entre enlaces */
+  margin-bottom: 0; /* Sin margen inferior extra */
 }
 
-#mainNav .navbar-nav .nav-link:hover {
-  color: #a6e2a6;
+#mainNav .navbar-nav .nav-link { /* Estilo de cada enlace de navegación */
+  color: #ffffff; /* Color blanco para los enlaces */
+  font-weight: 600; /* Grosor seminegrita */
+  transition: color 0.2s ease-in-out; /* Transición suave al pasar el cursor */
 }
 
-.error-section {
-  min-height: 88vh;
-  padding: 8rem 0 5rem 0;
-  background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
+#mainNav .navbar-nav .nav-link:hover { /* Efecto hover sobre los enlaces del menú */
+  color: #a6e2a6; /* Cambia a verde claro al pasar el mouse */
 }
 
-.error-card {
-  border-radius: 1rem;
-  background-color: rgba(255, 255, 255, 0.97);
+.error-section { /* Sección principal que contiene la tarjeta de error 404 */
+  flex: 1 0 auto; /* Crece automáticamente para ocupar todo el espacio disponible sobre el footer */
+  min-height: 88vh; /* Altura mínima garantizada */
+  padding: 8rem 0 5rem 0; /* Espaciado superior (bajo el menú fijo) e inferior */
+  background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%); /* Degradado de fondo institucional */
 }
 
-.error-code {
-  color: #64a19d;
-  letter-spacing: 0.2rem;
+.error-card { /* Tarjeta central donde se muestra el detalle del error 404 */
+  border-radius: 1rem; /* Bordes redondeados pronunciados */
+  background-color: rgba(255, 255, 255, 0.97); /* Fondo blanco ligeramente translúcido */
 }
 
-.error-divider {
-  width: 4rem;
-  border-top: 3px solid #64a19d;
-  opacity: 1;
+.error-code { /* Estilo del número grande "404" */
+  color: #64a19d; /* Color verde-azulado primario */
+  letter-spacing: 0.2rem; /* Espaciado entre los dígitos del 404 */
 }
 
-.btn {
-  padding: 0.9rem 1.75rem;
-  font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-size: 80%;
-  text-transform: uppercase;
-  letter-spacing: 0.12rem;
+.error-divider { /* Línea separadora bajo el título del error */
+  width: 4rem; /* Ancho corto centrado */
+  border-top: 3px solid #64a19d; /* Borde superior de 3px del color primario */
+  opacity: 1; /* Totalmente opaco */
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #64a19d;
-  border-color: #64a19d;
+.btn { /* Estilo base para los botones de retorno */
+  padding: 0.9rem 1.75rem; /* Relleno interno del botón */
+  font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; /* Fuente del botón */
+  font-size: 80%; /* Tamaño de letra proporcional */
+  text-transform: uppercase; /* Texto en mayúsculas */
+  letter-spacing: 0.12rem; /* Separación entre letras */
 }
 
-.btn-primary:hover {
-  background-color: #558985;
-  border-color: #50817e;
-  color: #fff;
+.btn-primary { /* Estilo del botón principal "Ver Todos los Destinos" */
+  color: #fff; /* Texto blanco */
+  background-color: #64a19d; /* Fondo verde-azulado */
+  border-color: #64a19d; /* Borde del mismo color */
 }
 
-.footer {
-  padding: 2.5rem 0;
-  background-color: #212529;
-  color: #f8f9fa;
+.btn-primary:hover { /* Estado al pasar el cursor sobre el botón principal */
+  background-color: #558985; /* Tono más oscuro al hacer hover */
+  border-color: #50817e; /* Borde más oscuro */
+  color: #fff; /* Mantiene el texto blanco */
+}
+
+.footer { /* Pie de página institucional */
+  margin-top: auto; /* Empuja el footer siempre al borde inferior de la ventana */
+  flex-shrink: 0; /* Evita que el footer se comprima */
+  padding: 2.5rem 0; /* Relleno vertical interno */
+  background-color: #212529; /* Fondo gris oscuro */
+  color: #f8f9fa; /* Texto claro */
 }

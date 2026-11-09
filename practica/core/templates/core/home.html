@@ -1,15 +1,15 @@
-{% extends "core/base.html" %}
-{% load static %}
-{% block content %}
-        <header class="masthead">
-            <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
-                <div class="d-flex justify-content-center">
-                    <div class="text-center">
-                        <h1 class="mx-auto my-0 text-uppercase">Descubre el Paisaje</h1>
-                        <h2 class="text-white-50 mx-auto mt-2 mb-5">Explora los mejores destinos naturales, rutas de senderismo y vive experiencias inolvidables.</h2>
-                        <a class="btn btn-primary shadow-sm" href="{% url 'gallery' %}">Ver Destinos</a>
-                    </div>
-                </div>
-            </div>
-        </header>
-{% endblock %}
+{% extends "core/base.html" %} <!-- Hereda la estructura general desde la plantilla base de core -->
+{% load static %} <!-- Carga las herramientas para gestionar archivos estáticos en Django -->
+{% block content %} <!-- Inicia el bloque de contenido principal que se inserta en base.html -->
+        <header class="masthead"> <!-- Cabecera principal (Hero) con imagen de fondo y altura adaptable -->
+            <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center"> <!-- Contenedor que centra vertical y horizontalmente el contenido -->
+                <div class="d-flex justify-content-center"> <!-- Caja flexible para centrar el bloque de texto -->
+                    <div class="text-center home-hero-content"> <!-- Contenedor del texto de bienvenida centrado -->
+                        <h1 class="mx-auto mb-4 text-uppercase">Descubre el Paisaje</h1> <!-- Título principal en mayúsculas de la portada -->
+                        <h2 class="text-white-50 mx-auto mt-2 mb-5">Explora los mejores destinos naturales, rutas de senderismo y vive experiencias inolvidables.</h2> <!-- Subtítulo descriptivo de la plataforma de ecoturismo -->
+                        <a class="btn btn-primary shadow-sm" href="{% url 'gallery' %}">Ver Destinos</a> <!-- Botón de acción que lleva directamente al catálogo de destinos -->
+                    </div> <!-- Fin del contenedor de texto de bienvenida -->
+                </div> <!-- Fin de la caja flexible -->
+            </div> <!-- Fin del contenedor principal del hero -->
+        </header> <!-- Fin de la cabecera principal -->
+{% endblock %} <!-- Fin del bloque de contenido -->

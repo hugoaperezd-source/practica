@@ -1,37 +1,37 @@
-{% extends "errors/base.html" %}
-{% load static %}
+{% extends "errors/base.html" %} <!-- Hereda la estructura general de la plantilla base de la app errors -->
+{% load static %} <!-- Habilita la carga de archivos estáticos -->
 
-{% block content %}
-<section class="error-section d-flex align-items-center justify-content-center">
-    <div class="container px-4 px-lg-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
-                <div class="card error-card shadow-lg border-0 p-5">
-                    <div class="card-body">
-                        <div class="error-icon mb-3">
-                            <i class="fas fa-compass fa-4x text-primary"></i>
-                        </div>
-                        <h1 class="display-1 fw-bold error-code mb-2">404</h1>
-                        <h2 class="text-uppercase fw-bold mb-3">Destino o Filtro No Encontrado</h2>
-                        <hr class="mx-auto error-divider mb-4" />
-                        <p class="text-muted fs-5 mb-3">
-                            {{ mensaje_error }}
-                        </p>
-                        <p class="small text-secondary mb-4">
-                            Ruta consultada: <code>{{ ruta_solicitada }}</code>
-                        </p>
-                        <div class="d-flex justify-content-center gap-3 flex-wrap">
-                            <a href="{% url 'gallery' %}" class="btn btn-primary shadow-sm">
-                                <i class="fas fa-images me-2"></i>Ver Todos los Destinos
-                            </a>
-                            <a href="{% url 'home' %}" class="btn btn-outline-secondary">
-                                <i class="fas fa-home me-2"></i>Volver al Inicio
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-{% endblock %}
+{% block content %} <!-- Abre el bloque principal de contenido de la página 404 -->
+<section class="error-section d-flex align-items-center justify-content-center"> <!-- Sección principal que ocupa el alto disponible y centra la tarjeta -->
+    <div class="container px-4 px-lg-5"> <!-- Contenedor centrado con márgenes responsivos -->
+        <div class="row justify-content-center"> <!-- Fila centrada horizontalmente -->
+            <div class="col-lg-8 text-center"> <!-- Columna de 8 unidades con texto centrado -->
+                <div class="card error-card shadow-lg border-0 p-5"> <!-- Tarjeta visual con sombra y bordes redondeados para mostrar el aviso -->
+                    <div class="card-body"> <!-- Cuerpo interior de la tarjeta -->
+                        <div class="error-icon mb-3"> <!-- Contenedor del ícono de brújula -->
+                            <i class="fas fa-compass fa-4x text-primary"></i> <!-- Ícono de brújula indicando ruta o filtro extraviado -->
+                        </div> <!-- Fin del contenedor del ícono -->
+                        <h1 class="display-1 fw-bold error-code mb-2">404</h1> <!-- Código de estado HTTP 404 destacado -->
+                        <h2 class="text-uppercase fw-bold mb-3">Destino o Filtro No Encontrado</h2> <!-- Título explicativo del error -->
+                        <hr class="mx-auto error-divider mb-4" /> <!-- Línea divisoria decorativa centrada -->
+                        <p class="text-muted fs-5 mb-3"> <!-- Párrafo que muestra el motivo exacto del error 404 enviado por la vista -->
+                            {{ mensaje_error }} <!-- Variable de contexto con el detalle del error -->
+                        </p> <!-- Fin del párrafo de mensaje -->
+                        <p class="small text-secondary mb-4"> <!-- Párrafo secundario que informa la URL consultada -->
+                            Ruta consultada: <code>{{ ruta_solicitada }}</code> <!-- Muestra la ruta completa con parámetros GET que causó el 404 -->
+                        </p> <!-- Fin del párrafo de ruta -->
+                        <div class="d-flex justify-content-center gap-3 flex-wrap"> <!-- Contenedor flexible con botones de retorno -->
+                            <a href="{% url 'gallery' %}" class="btn btn-primary shadow-sm"> <!-- Botón para regresar al catálogo completo sin filtros -->
+                                <i class="fas fa-images me-2"></i>Ver Todos los Destinos <!-- Ícono y texto del botón hacia Gallery -->
+                            </a> <!-- Fin del botón hacia Gallery -->
+                            <a href="{% url 'home' %}" class="btn btn-outline-secondary"> <!-- Botón secundario para volver a la portada principal -->
+                                <i class="fas fa-home me-2"></i>Volver al Inicio <!-- Ícono y texto del botón hacia Home -->
+                            </a> <!-- Fin del botón hacia Home -->
+                        </div> <!-- Fin del contenedor de botones -->
+                    </div> <!-- Fin del cuerpo de la tarjeta -->
+                </div> <!-- Fin de la tarjeta -->
+            </div> <!-- Fin de la columna -->
+        </div> <!-- Fin de la fila -->
+    </div> <!-- Fin del contenedor -->
+</section> <!-- Fin de la sección de error -->
+{% endblock %} <!-- Cierra el bloque de contenido -->
